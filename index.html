@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=skip_next" />
+  
+  <title>Muse - Music Player</title>
+  
+  
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-vibrant/3.1.6/vibrant.min.js"></script>
+  
+  
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header id="topDivHeader" style="color: #fff">
+    <div id="topDiv">
+      
+      <div id="logoDiv">
+        <img src="/assets/imgs/muse AppLogo.jpg" alt="Logo App" id="logoApp">
+        
+      </div>
+      
+      
+      <div id="topBtnDiv">
+        
+        <img src="/assets/imgs/account-circle-svgrepo-com.svg" alt="AccountImg">
+      </div>
+    </div>
+    
+  </header>
+  
+  
+  
+  
+  <div id="backCoverImg"></div>
+  
+  <main id="appContents">
+    <p id="playingNowText">Tocando do álbum</p>
+    
+    <div id="top-menu">
+      <button id="closeMusicBlock" onclick="CloseMusic()"> <img src="/assets/imgs/up-arrow-svgrepo-com.svg" alt="">
+      </button>
+      
+      
+      <h5 id="suasMusicasText">Suas músicas</h5>
+      
+      <input type="file" id="addMusic" accept="audio/*">
+      
+      <button id="addMusicBtn" onclick="openSection()">
+        <img src="/assets/imgs/ellipsis-v-svgrepo-com.svg" alt="">
+      </button>
+      
+      
+    </div>
+    
+    <div id="albumDiv">
+      <img src="/assets/imgs/070f28a3-0dd3-4f3b-a9f3-4947a196a408.webp" id="cover-img">
+      
+    </div>
+    
+    <div id="musicInfo">
+      <h2 id="musicName">Nenhuma música Encontrada</h2>
+      <p id="artistName">Desconhecido</p>
+    </div>
+    
+    <div id="sliderDiv">
+      <audio hidden controls id="audioPlayer">
+        <source type="audio/mp3" src="" id="audioPlayer">
+      </audio>
+      <div id="inputDiv">
+        <input type="range" id="slider" value="0" min="0">
+      </div>
+      
+      <div id="durationDiv">
+        <div>
+          <p id="atualValue" style="font-weight: 600;">0:00</p>
+        </div>
+        <div>
+          <p id="totalValue" style="font-weight: 600;">0:00</p>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    <div class="Buttons" id="buttonsDiv">
+      <button id="suffleBtn"><img src="/assets/imgs/suffle.png"></button>
+      <button id="previousButton"><img src="/assets/imgs/next-svgrepo-com.svg"></button>
+      <button id="playButton"><img src="/assets/imgs/play-svgrepo-com.svg" id="playImg"></button>
+      <button id="nextButton"><img src="/assets/imgs/next-svgrepo-com.svg"></button>
+      <button id="repeatBtn"><img src="/assets/imgs/repeat.png" alt=""></button>
+      <button id="addToPlaylistBtn" onclick="addToPlaylist()" style="display: none">Add a playlist</button>
+    </div>
+    <div id="playListDiv">
+      <h2>Próximas:</h2>
+      <div id="musicList">
+        
+      </div>
+    </div>
+  </main>
+  </div>
+  
+  
+  
+  
+  <div id="ytVideosContents">
+    
+    <div id="backgroundImgVideos">
+      <main id="VideosContents">
+        <p id="playingNowText">Tocando do álbum</p>
+        
+        <div id="top-menu">
+          <button onclick="openVideoDiv()" id="openVideoBtn" style="display: none"><img src="/assets/imgs/up-arrow-svgrepo-com.svg" alt=""></button>
+          
+          
+          <button id="closeVideoDiv" onclick="closeYtDiv()"> <img src="/assets/imgs/up-arrow-svgrepo-com.svg" alt="">
+          </button>
+          
+          <h5>Lives Recomendadas</h5>
+          
+          <button id="threePointsBtn" onclick="openSection()">
+            <img src="/assets/imgs/ellipsis-v-svgrepo-com.svg" alt="">
+          </button>
+        </div>
+        
+        
+        <div id="player">
+          
+          
+        </div>
+        
+        <div id="musicInfo">
+          <div id="divVideoName">
+            <h2 id="videoName">Nome do video</h2>
+          </div>
+          <div id="channelName">
+            <p> Nome do Canal</p>
+          </div>
+        </div>
+        
+        <div class="Buttons">
+          <button id="suffleVideoBtn"><img src="/assets/imgs/suffle.png"></button>
+          <button id="previousButton"><img src="/assets/imgs/next-svgrepo-com.svg"></button>
+          
+          <button id="playVideoBtn" onclick="player.playVideo()" style="display: none"><img src="/assets/imgs/play-svgrepo-com.svg" id="playVideoImg"></>
+            
+            <button id="pauseVideoBtn" onclick="player.pauseVideo()"><img src="assets/imgs/pause-svgrepo-com.svg" id="playVideoImg"></>
+              
+              <button id="nextVideoBtn"><img src="/assets/imgs/next-svgrepo-com.svg"></button>
+              <button id="repeatVideoBtn"><img src="/assets/imgs/repeat.png" alt=""></button>
+        </div>
+    </div>
+  </div>
+  
+  
+  
+  <!--- Divs home, search, bibliotec, --->
+  <div id="homeContents" class="page active">
+    
+    <div id="musicMenu">
+      <header id="suasMusicasDiv" class="divStyled">
+        <h2 style="color: white" id="suasMusicas">Suas Musicas</h2>
+        
+        <div id="buttonMostrarMais">
+          <button class="showMoreBtn">
+            <img src="/assets/imgs/arrow_insert_24dp_CCCCCC_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+          </button>
+        </div>
+      </header>
+      <div id="myPlaylist">
+        
+      </div>
+      
+      
+      <div id="addMusicDiv" style="display: none">
+        
+      </div>
+      
+      
+      
+      <div id="ytVideosDiv">
+        <header class="divStyled" style="display: flex; justify-content: space-between">
+          <h2>Lives recomendadas</h2>
+          
+          <div id="">
+            <button class="showMoreBtn">
+              <img src="/assets/imgs/arrow_insert_24dp_CCCCCC_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+            </button>
+          </div>
+        </header>
+        
+        
+      </div>
+      <div id="ytVideos">
+        
+        
+      </div>
+      
+      
+      <div id="ytNewReleasesDiv">
+        <header class="divStyled" style="display: flex; justify-content: space-between; width: 100dvw;">
+          <h2>Lançamentos</h2>
+          
+          <div id="">
+            <button class="showMoreBtn">
+              <img src="/assets/imgs/arrow_insert_24dp_CCCCCC_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+            </button>
+          </div>
+        </header>
+        
+      </div>
+      
+      <div id="ytReleasesVideos">
+        
+      </div>
+      
+      
+      <div id="invisbleMargin">
+        
+      </div>
+    </div>
+    
+    
+    
+    
+  </div>
+  
+  <div id="playlistDados" style="display: none;">
+    
+    <div id="photoPlaylistDiv" style="display: none;">
+      <img src="/assets/imgs/070f28a3-0dd3-4f3b-a9f3-4947a196a408.webp
+" alt="" id="photoPlaylistDiv">
+      
+      <button id="personalizePhoto"><img src="/assets/imgs/stylus_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="" onclick="imageOfPlaylist.click()"></button>
+      
+    </div>
+    <form id="formPlaylist">
+      
+      <label for="playlistName">
+        <h3 style="color: #fff;">Nome da Playlist:</h3>
+      </label>
+      <input type="file" id="imageOfPlaylist" style="display: none" accept="image/*">
+      
+      <div class="inputBorder">
+        <input id="playlistName" placeholder="ex: Minha Playlist e etc..." name="playlistName" minlength="4" autofocus>
+      </div>
+      <label for="descPlaylist">
+        <h3 style="color: #fff;">Descrição:</h3>
+      </label>
+      
+      <div class="inputBorder">
+        <input id="descPlaylist" placeholder="ex: Minha melhor playlist..." name="descName" maxlength="100">
+      </div>
+      
+      
+      
+      
+      
+      <h4 id="errorsText" style="color: firebrick;
+            height: 1px;
+            "></h4>
+      
+      
+      <div id="buttonForms">
+        <button onclick="closeCreatePlaylist()" type="reset" id="close">Cancelar</button>
+        
+        <button id="savePlaylist">Criar</button>
+      </div>
+    </form>
+  </div>
+  
+  
+  <div id="searchContents" class="page">
+    <header class="headerSearch">
+      <button id="closeSearchCnts"><img src="/assets/imgs/arrow_left_alt_24dp_CCCCCC_FILL0_wght400_GRAD0_opsz24.svg" /></button>
+      
+      <input type="text" name="query" id="searchInput" placeholder="Pesquise Músicas..." />
+    </header>
+    
+    <div id="suggestionBox">
+      
+    </div>
+    <div id="">
+      
+      <div id="resultsDiv">
+        
+        <div id="results">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <div id="bibliotecContents" class="page">
+    <header id="bibliotecHeader">
+      <h2>Biblioteca</h2>
+      <div id="">
+        <button id="searchBibliotecButton">
+          <img src="/assets/imgs/search-svgrepo-com (1).svg" alt="" />
+        </button>
+      </div>
+    </header>
+    
+    <div class="bibliotecMainConteiner">
+      <div id="recentPlayedConteiner">
+        
+        <h3>Ouvidos Recentemente</h3>
+        <div id="recentMusic">
+          
+          
+        </div>
+      </div>
+      
+      <h3>Recentes</h3>
+      <div id="playlistsAndOthers">
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  <div id="backgroundConfigMenu">
+    
+    <div id="configMenu" style="">
+      <div id="">
+        <h2>Personalizar</h2>
+      </div>
+      
+      <div id="">
+        <h2>Ajuda</h2>
+      </div>
+    </div>
+  </div>
+  
+  <nav id="navBarBtns">
+    <div>
+      <button id="homeBtn" onclick="showPage('homeContents')">
+        <img src="/assets/imgs/home-svgrepo-com.svg" alt="inicio">
+        Início
+      </button>
+    </div>
+    
+    <div>
+      <button id="searchBtn" onclick="showPage('searchContents')">
+        <img src="/assets/imgs/search-svgrepo-com (1).svg" alt="procurar">
+        Buscar
+      </button>
+    </div>
+    
+    <div>
+      <button id="AddMusicBtn" onclick="document.getElementById('addMusic').click()">
+        <img src="/assets/imgs/plus-add-new-create-svgrepo-com.svg" alt="Plus">
+      </button>
+    </div>
+    
+    <div>
+      <button id="bibliotecBtn" onclick="showPage('bibliotecContents')">
+        <img src="/assets/imgs/library-svgrepo-com.svg" alt="library">
+        Biblioteca
+      </button>
+    </div>
+    
+    
+    <div>
+      <button id="CriarBtn" onclick="createPlaylist()">
+        <img src="/assets/imgs/playlist-add-svgrepo-com.svg" alt="criar">
+        Criar
+      </button>
+    </div>
+    
+  </nav>
+  
+  <script src="main.js"></script>
+  
+</body>
+
+        </html>
